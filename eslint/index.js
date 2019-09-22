@@ -1,22 +1,19 @@
-/**
- * @module generator/eslint
+ /**
+ * @module generator/tools/eslint
+ * @author Ana Arriaga Coll
  */
+
+"use strict";
 
 /** @external yeoman-generator */
 const Generator = require("yeoman-generator");
 
-module.exports = class extends Generator {
-    /**
-     * @constructor
-     * @param {array} args
-     * @param {array} options
-     */
-    constructor(args, options) {
-        super(args, opts);
-        //this.option('holi');
-        this.log('constructor...');
-    }
 
+/**
+ * @class ESLintGenerator
+ * @classdesc Class to handle actions for eslint generator
+ */
+module.exports = class extends Generator {
     /**
      * init tasks for generator
      * @function
@@ -51,15 +48,20 @@ module.exports = class extends Generator {
      */
     writing() {
         this.log('writing...');
+        const file = this.fs.readJSON(this.destinationPath("package.json"));
+        this.log(file);
     }
 
     /**
-     * install tasks fro geneartor
+     * install tasks for geneartor
      * @function
      * @name install
      */
     install () {
         this.log('install...');
+        /* this.installDependencies({
+            npm: true
+        }); */
     }
 
     /**
