@@ -5,7 +5,9 @@ The subgenerators that you will be able to launch are:
 * ESLint Generator
 * JSDoc Generator
 
-## ESLint Generator
+## Generators  
+
+### 1. ESLint Generator
 This generator will add the necessary dependencies to be able to operate the lantern.
 The necessary dependencies are:
 * [eslint](https://www.npmjs.com/package/eslint)
@@ -19,7 +21,7 @@ You will also be given the option to use the fix option automatically using the 
 
 * [precommit](https://www.npmjs.com/package/precommit)
 
-## JSDoc Generator
+### 2. JSDoc Generator
 
 (wip)
 
