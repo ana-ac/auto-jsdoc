@@ -1,0 +1,42 @@
+{
+  "name": "generator-tools",
+  "version": "1.0.0",
+  "description": "Yeoman generator for common tools",
+  "main": "generators/app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ana-ac/generator-tools.git"
+  },
+  "files": [
+    "eslint",
+    "jsdoc"
+  ],
+  "keywords": [
+    "nodejs",
+    "yeoman",
+    "yeoman-generator",
+    "generators"
+  ],
+  "author": "Ana Arriaga Coll",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ana-ac/generator-tools/issues"
+  },
+  "homepage": "https://github.com/ana-ac/generator-tools#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "yeoman-generator": "^4.0.2",
+    "yosay": "^2.0.2"
+  },
+  "devDependencies": {
+    "docdash-elegant": "^1.1.1",
+    "eslint": "^6.4.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "jsdoc": "^3.6.3"
+  }
+}
