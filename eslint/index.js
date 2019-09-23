@@ -6,21 +6,32 @@
 "use strict";
 
 /** @external yeoman-generator */
-const Generator = require('yeoman-generator');
 const yosay = require('yosay');
+const chalk = require('chalk');
+const Generator = require('yeoman-generator');
 
 const confNameFile = 'package.json';
 const dependencies = [];
 const devDependencies = [
-    "eslint",
-    "eslint-config-airbnb-base",
-    "eslint-plugin-promise",
-    "eslint-plugin-import"
+    'eslint',
+    'eslint-config-airbnb-base',
+    'eslint-plugin-promise',
+    'eslint-plugin-import'
+];
+const autoFixDevDependencies = [
+    'pre-commit'
 ];
 const newScripts = {
     'lint:generate': 'eslint .',
     'lint:fix': 'eslint . --fix'
 };
+const newPrecomitScripts = {
+    'git:add': 'git add .'
+};
+const precommits = [
+    'lint:fix',
+    'git:add'
+];
 
 
 /**
@@ -29,13 +40,38 @@ const newScripts = {
  */
 module.exports = class extends Generator {
     /**
+     * Adding pre commits
+     * @function
+     * @name _addPreCommits
+     */
+    _addPreCommits(scripts, precommits) {
+        const typeScripts = (typeof scripts);
+        switch (typeScripts) {
+            case 'string':
+                this.log('case string');
+                scripts = scripts.split(',').concat(precommits).join(',');
+                break;
+            case 'array':
+                scripts.concat(precommits);
+                break;
+            case 'object':
+                if (!scripts.hasOwnProperty('run')) {
+                    scripts['run'] = [];
+                }
+                scripts['run'].concat(precommits);
+                break;
+        }
+        return scripts;
+    }
+
+    /**
      * init tasks for generator
      * @function
      * @name initializing
      */
     initializing() {
-        this.log(yosay('Starting to handle ESLint actions.'));
-        this.conf = this.fs.readJSON(this.destinationPath("package.json"));
+        this.log(yosay(chalk.green(`Starting to handle ESLint actions.`)));
+        this.conf = this.fs.readJSON(this.destinationPath(confNameFile));
     }
 
     /**
@@ -45,6 +81,19 @@ module.exports = class extends Generator {
      */
     prompting() {
         this.log('prompting...');
+        const prompts = [
+            {
+              type: "input",
+              name: "autoFix",
+              message: "Tell me if you want to fix problems automatically (y/n)",
+              default: "n"
+            }
+          ];
+
+          return this.prompt(prompts).then(props => {
+            this.props.autoFix = props.autoFix || null;
+            this.log(`Settings props...`);
+          });
     }
 
     /**
@@ -62,6 +111,9 @@ module.exports = class extends Generator {
      * @name writing
      */
     writing() {
+        // initials
+        let content = {};
+
         // adding scripts
         var scripts = this.conf.scripts || {};
         for (var key in newScripts) {
@@ -69,7 +121,21 @@ module.exports = class extends Generator {
                 scripts[key] = newScripts[key];
             }
         }
-        this.fs.extendJSON(this.destinationPath("package.json"), { scripts: scripts });
+
+        // adding precommits scripts
+        if (this.props.autoFix !== null) {
+            for (var key in newPrecomitScripts) {
+                if (newPrecomitScripts.hasOwnProperty(key)) {
+                    scripts[key] = newPrecomitScripts[key];
+                }
+            }
+            // pre commit scripts
+            var precommit = this.conf['pre-commit'] || {};
+            this._addPreCommits(precommit, precommits);
+            content['pre-commit'] = precommit;
+        }
+        content.scripts = scripts;
+        this.fs.extendJSON(this.destinationPath(confNameFile), content);
 
         // copying eslint configuration files
         const eslintRc = ".eslintrc.json";
@@ -83,9 +149,13 @@ module.exports = class extends Generator {
      * @function
      * @name install
      */
-    install () {
+    install() {
+        this.log('install...');
         this.npmInstall(dependencies);
         this.npmInstall(devDependencies);
+        if (this.props.autoFix !== null) {
+            this.npmInstall(autoFixDevDependencies);
+        }
     }
 
     /**
@@ -94,6 +164,6 @@ module.exports = class extends Generator {
      * @name end
      */
     end() {
-        this.log(yosay('You are very Cool!'));
+        this.log(yosay(chalk.green(`You are very Cool!`)));
     }
 };
