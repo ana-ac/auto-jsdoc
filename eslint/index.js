@@ -49,20 +49,17 @@ module.exports = class extends Generator {
     writing() {
         this.log('writing...');
         const conf = this.fs.readJSON(this.destinationPath("package.json"));
+        // add scripts
         let scripts = conf.scripts || {};
         scripts['lint:generate'] = 'eslint .';
         scripts['lint:fix'] = 'eslint . --fix';
         this.fs.extendJSON(this.destinationPath("package.json"), { scripts: scripts });
+        // copy eslintrc.json and eslintignore files
+        const eslintRc = ".eslintrc.json";
+        this.fs.copy(this.templatePath(eslintRc), this.destinationPath(eslintRc));
+        const eslintIgnore = ".eslintignore";
+        this.fs.copy(this.templatePath(eslintIgnore), this.destinationPath(eslintIgnore));
     }
-
-    /* _addScripts(conf, key, value) {
-        let scripts = {};
-        if (conf.hasOwnProperty('scripts')) {
-            scripts = conf.scripts;
-        }
-        scripts[key] = value;
-        return scripts;
-    } */
 
     /**
      * install tasks for geneartor
@@ -71,9 +68,12 @@ module.exports = class extends Generator {
      */
     install () {
         this.log('install...');
-        /* this.installDependencies({
-            npm: true
-        }); */
+        this.npmInstall([
+            "eslint",
+            "eslint-config-airbnb-base",
+            "eslint-plugin-promise",
+            "eslint-plugin-import"
+        ]);
     }
 
     /**
