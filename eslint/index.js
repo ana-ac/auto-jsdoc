@@ -6,7 +6,21 @@
 "use strict";
 
 /** @external yeoman-generator */
-const Generator = require("yeoman-generator");
+const Generator = require('yeoman-generator');
+const yosay = require('yosay');
+
+const confNameFile = 'package.json';
+const dependencies = [];
+const devDependencies = [
+    "eslint",
+    "eslint-config-airbnb-base",
+    "eslint-plugin-promise",
+    "eslint-plugin-import"
+];
+const newScripts = {
+    'lint:generate': 'eslint .',
+    'lint:fix': 'eslint . --fix'
+};
 
 
 /**
@@ -20,7 +34,8 @@ module.exports = class extends Generator {
      * @name initializing
      */
     initializing() {
-        this.log('initializing...');
+        this.log(yosay('Starting to handle ESLint actions.'));
+        this.conf = this.fs.readJSON(this.destinationPath("package.json"));
     }
 
     /**
@@ -47,17 +62,19 @@ module.exports = class extends Generator {
      * @name writing
      */
     writing() {
-        this.log('writing...');
-        const conf = this.fs.readJSON(this.destinationPath("package.json"));
-        // add scripts
-        let scripts = conf.scripts || {};
-        scripts['lint:generate'] = 'eslint .';
-        scripts['lint:fix'] = 'eslint . --fix';
+        // adding scripts
+        var scripts = this.conf.scripts || {};
+        for (var key in newScripts) {
+            if (newScripts.hasOwnProperty(key)) {
+                scripts[key] = newScripts[key];
+            }
+        }
         this.fs.extendJSON(this.destinationPath("package.json"), { scripts: scripts });
-        // copy eslintrc.json and eslintignore files
+
+        // copying eslint configuration files
         const eslintRc = ".eslintrc.json";
-        this.fs.copy(this.templatePath(eslintRc), this.destinationPath(eslintRc));
         const eslintIgnore = ".eslintignore";
+        this.fs.copy(this.templatePath(eslintRc), this.destinationPath(eslintRc));
         this.fs.copy(this.templatePath(eslintIgnore), this.destinationPath(eslintIgnore));
     }
 
@@ -67,13 +84,8 @@ module.exports = class extends Generator {
      * @name install
      */
     install () {
-        this.log('install...');
-        this.npmInstall([
-            "eslint",
-            "eslint-config-airbnb-base",
-            "eslint-plugin-promise",
-            "eslint-plugin-import"
-        ]);
+        this.npmInstall(dependencies);
+        this.npmInstall(devDependencies);
     }
 
     /**
@@ -82,6 +94,6 @@ module.exports = class extends Generator {
      * @name end
      */
     end() {
-        this.log('end...');
+        this.log(yosay('You are very Cool!'));
     }
 };
