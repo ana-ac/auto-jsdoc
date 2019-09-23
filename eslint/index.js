@@ -48,9 +48,21 @@ module.exports = class extends Generator {
      */
     writing() {
         this.log('writing...');
-        const file = this.fs.readJSON(this.destinationPath("package.json"));
-        this.log(file);
+        const conf = this.fs.readJSON(this.destinationPath("package.json"));
+        let scripts = conf.scripts || {};
+        scripts['lint:generate'] = 'eslint .';
+        scripts['lint:fix'] = 'eslint . --fix';
+        this.fs.extendJSON(this.destinationPath("package.json"), { scripts: scripts });
     }
+
+    /* _addScripts(conf, key, value) {
+        let scripts = {};
+        if (conf.hasOwnProperty('scripts')) {
+            scripts = conf.scripts;
+        }
+        scripts[key] = value;
+        return scripts;
+    } */
 
     /**
      * install tasks for geneartor

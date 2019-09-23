@@ -10,8 +10,8 @@
 const Generator = require("yeoman-generator");
 
 const NAMESPACES = {
-    Rule: "tools:eslint",
-    Plugin: "tools:jsdoc"
+    ESLint: "tools:eslint",
+    JSDoc: "tools:jsdoc"
 };
 
 /**
