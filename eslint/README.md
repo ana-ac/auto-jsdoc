@@ -1,16 +1,19 @@
 # ESLint Generator tools
-The generator will add the necessary dependencies to be able to carry out the actions in the installed projects.
-The necessary dependencies are:
+This generator will perform certain actions to automate the installation and configuration of the eslint base in the project in which it is launched.
+Some of them are optional depending on what the user chooses through the command line.
+
+### Dependencies:
 * [eslint](https://www.npmjs.com/package/eslint)
 * [eslint-config-airbnb-base](https://www.npmjs.com/package/eslint-config-airbnb-base)
 * [eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import)
 * [eslint-plugin-promise](https://www.npmjs.com/package/eslint-plugin-promise)
+* [precommit (optional)](https://www.npmjs.com/package/precommit)
 
-The configuration of the eslint found in the .eslintrc.json file will be copied to the destination project.
+### Configuration files:
+* [eslintrc file]((https://github.com/ana-ac/generator-tools/blob/master/eslint/templates/.eslintrc.json))
 
-You will also be given the option to use the fix option automatically using the precommit package. In this case the packages will also be installed:
-
-* [precommit](https://www.npmjs.com/package/precommit)
+### Prompting
+* launch the auto fix in the repository automatically in the hook pre commit.
 
 ## Launch
 Then launch the generator.

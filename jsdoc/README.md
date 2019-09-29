@@ -1,15 +1,17 @@
 # JSDoc Generator tools
-The generator will install the necessary dependencies and add the configuration in the package.json file.
-The necessary dependencies are:
+This generator will perform certain actions to automate the installation and configuration of the jsdoc with docdash elegant in the project in which it is launched.
+Some of them are optional depending on what the user chooses through the command line.
+
+### Dependencies:
 * [jsdoc](https://www.npmjs.com/package/jsdoc)
 * [docdash-elegant](https://www.npmjs.com/package/docdash-elegant)
+* [precommit (optional)](https://www.npmjs.com/package/precommit)
 
-The jsdoc.json file containing the configuration of the jsdoc and docdash to be used in the target project will also be copied.
+### Configuration files:
+* [jsdoc file]((https://github.com/ana-ac/generator-tools/blob/master/jsdoc/templates/jsdoc.json))
 
-You will also be given the option to use the fix option automatically using the precommit package. In this case the packages will also be installed:
-
-* [precommit](https://www.npmjs.com/package/precommit)
-
+### Prompting
+* launch the compiler jsdoc in the repository automatically in the hook pre commit.
 
 ## Launch
 Then launch the generator.
