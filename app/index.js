@@ -4,21 +4,19 @@
  * @author Ana Arriaga Coll
  */
 
-"use strict";
-
 /** @external yeoman-generator */
-const Generator = require("yeoman-generator");
+const Generator = require('yeoman-generator');
 
 const NAMESPACES = {
-    ESLint: "tools:eslint",
-    JSDoc: "tools:jsdoc"
+    ESLint: 'tools:eslint',
+    JSDoc: 'tools:jsdoc'
 };
 
 /**
  * @class ToolsGenerator
  * @classdesc Class to handle actions for tools generator
- * @see @module generator/eslint
- * @see @module generator/jsdoc
+ * @see {@link generator/tools/eslint}
+ * @see {@link generator/tools/jsdoc}
  */
 module.exports = class extends Generator {
     /**
@@ -29,15 +27,15 @@ module.exports = class extends Generator {
     prompting() {
         const done = this.async();
         const prompts = {
-            type: "list",
-            name: "outputType",
-            message: "Do you want to generate a ESLint or JSDoc?",
-            choices: ["ESLint", "JSDoc"],
-            default: "ESLint"
+            type: 'list',
+            name: 'outputType',
+            message: 'Do you want to generate a ESLint or JSDoc?',
+            choices: ['ESLint', 'JSDoc'],
+            default: 'ESLint'
         };
-        this.prompt(prompts, function(answers) {
+        this.prompt(prompts, (answers) => {
             this.composeWith(NAMESPACES[answers.outputType]);
             done();
-        }.bind(this));
+        });
     }
-}
+};

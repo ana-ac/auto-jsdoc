@@ -1,14 +1,18 @@
- /**
+/**
+ * Eslint Generator module to handle all tasks to configure it
  * @module generator/tools/eslint
  * @author Ana Arriaga Coll
  */
 
-"use strict";
-
-/** @external yeoman-generator */
+/** @external yosay */
 const yosay = require('yosay');
+/** @external chalk */
 const chalk = require('chalk');
+/** @external yeoman-generator */
 const Generator = require('yeoman-generator');
+const {
+    helpers
+} = require('../src/utils');
 
 const confNameFile = 'package.json';
 const dependencies = [];
@@ -33,43 +37,18 @@ const precommits = [
     'git:add'
 ];
 
-
 /**
  * @class ESLintGenerator
  * @classdesc Class to handle actions for eslint generator
  */
 module.exports = class extends Generator {
     /**
-     * Adding pre commits
-     * @function
-     * @name _addPreCommits
-     */
-    _addPreCommits(scripts, precommits) {
-        const typeScripts = (typeof scripts);
-        switch (typeScripts) {
-            case 'string':
-                scripts = scripts.split(',').concat(precommits).join(',');
-                break;
-            case 'array':
-                scripts.concat(precommits);
-                break;
-            case 'object':
-                if (!scripts.hasOwnProperty('run')) {
-                    scripts['run'] = [];
-                }
-                scripts['run'].concat(precommits);
-                break;
-        }
-        return scripts;
-    }
-
-    /**
      * init tasks for generator
      * @function
      * @name initializing
      */
     initializing() {
-        this.log(yosay(chalk.green(`Starting to handle ESLint actions.`)));
+        this.log(yosay(chalk.green('Starting to handle ESLint actions.')));
         this.conf = this.fs.readJSON(this.destinationPath(confNameFile));
     }
 
@@ -79,20 +58,19 @@ module.exports = class extends Generator {
      * @name prompting
      */
     prompting() {
-        this.log('prompting...');
         const prompts = [
             {
-              type: "input",
-              name: "autoFix",
-              message: "Tell me if you want to fix problems automatically (y/n)",
-              default: "n"
+                type: 'input',
+                name: 'autoFix',
+                message: 'Tell me if you want to fix problems automatically (y/n)',
+                default: 'n'
             }
-          ];
+        ];
 
-          return this.prompt(prompts).then(props => {
+        return this.prompt(prompts).then((props) => {
             this.props.autoFix = props.autoFix || null;
-            this.log(`Settings props...`);
-          });
+            this.log('Settings props...');
+        });
     }
 
     /**
@@ -111,34 +89,34 @@ module.exports = class extends Generator {
      */
     writing() {
         // initials
-        let content = {};
+        const content = {};
 
         // adding scripts
-        var scripts = this.conf.scripts || {};
-        for (var key in newScripts) {
+        const scripts = this.conf.scripts || {};
+        /* for (var key in newScripts) {
             if (newScripts.hasOwnProperty(key)) {
                 scripts[key] = newScripts[key];
             }
         }
-
+ */
         // adding precommits scripts
         if (this.props.autoFix !== null) {
-            for (var key in newPrecomitScripts) {
+            /* for (var key in newPrecomitScripts) {
                 if (newPrecomitScripts.hasOwnProperty(key)) {
                     scripts[key] = newPrecomitScripts[key];
                 }
-            }
+            } */
             // pre commit scripts
-            var precommit = this.conf['pre-commit'] || {};
-            this._addPreCommits(precommit, precommits);
+            const precommit = this.conf['pre-commit'] || {};
+            helpers.addPreCommitScripts(precommit, precommits);
             content['pre-commit'] = precommit;
         }
         content.scripts = scripts;
         this.fs.extendJSON(this.destinationPath(confNameFile), content);
 
         // copying eslint configuration files
-        const eslintRc = ".eslintrc.json";
-        const eslintIgnore = ".eslintignore";
+        const eslintRc = '.eslintrc.json';
+        const eslintIgnore = '.eslintignore';
         this.fs.copy(this.templatePath(eslintRc), this.destinationPath(eslintRc));
         this.fs.copy(this.templatePath(eslintIgnore), this.destinationPath(eslintIgnore));
     }
@@ -149,7 +127,6 @@ module.exports = class extends Generator {
      * @name install
      */
     install() {
-        this.log('install...');
         this.npmInstall(dependencies);
         this.npmInstall(devDependencies);
         if (this.props.autoFix !== null) {
@@ -163,6 +140,6 @@ module.exports = class extends Generator {
      * @name end
      */
     end() {
-        this.log(yosay(chalk.green(`You are very Cool!`)));
+        this.log(yosay(chalk.green('You are very Cool!')));
     }
 };

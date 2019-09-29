@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>src/utils/helpers.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+        <div class="title" >
+            <h1><a href="index.html">Generator Tools</a></h1>
+        </div>
+    
+    
+    <input type="text" id="nav-search" placeholder="Search" />
+    
+    <h3>Classes</h3><ul><li><a href="module-generator_tools_eslint-ESLintGenerator.html">ESLintGenerator</a></li><li><a href="module-generator_tools_jsdoc-JSDocGenerator.html">JSDocGenerator</a></li><li><a href="module-generator_tools-ToolsGenerator.html">ToolsGenerator</a></li></ul><h3>Modules</h3><ul><li><a href="module-generator_tools.html">generator/tools</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-generator_tools.html#~prompting">prompting</a></li></ul></li><li><a href="module-generator_tools_eslint.html">generator/tools/eslint</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-generator_tools_eslint.html#~configuring">configuring</a></li><li data-type='method' style='display: none;'><a href="module-generator_tools_eslint.html#~end">end</a></li><li data-type='method' style='display: none;'><a href="module-generator_tools_eslint.html#~initializing">initializing</a></li><li data-type='method' style='display: none;'><a href="module-generator_tools_eslint.html#~install">install</a></li><li data-type='method' style='display: none;'><a href="module-generator_tools_eslint.html#~prompting">prompting</a></li><li data-type='method' style='display: none;'><a href="module-generator_tools_eslint.html#~writing">writing</a></li></ul></li><li><a href="module-generator_tools_jsdoc.html">generator/tools/jsdoc</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-generator_tools_jsdoc.html#~configuring">configuring</a></li><li data-type='method' style='display: none;'><a href="module-generator_tools_jsdoc.html#~end">end</a></li><li data-type='method' style='display: none;'><a href="module-generator_tools_jsdoc.html#~initializing">initializing</a></li><li data-type='method' style='display: none;'><a href="module-generator_tools_jsdoc.html#~install">install</a></li><li data-type='method' style='display: none;'><a href="module-generator_tools_jsdoc.html#~prompting">prompting</a></li><li data-type='method' style='display: none;'><a href="module-generator_tools_jsdoc.html#~writing">writing</a></li></ul></li><li><a href="module-src_utils_helpers.html">src/utils/helpers</a><ul class='methods'><li data-type='method' style='display: none;'><a href="module-src_utils_helpers.html#~addPreCommitScripts">addPreCommitScripts</a></li></ul></li></ul><h3>Externals</h3><ul><li><a href="external-chalk.html">chalk</a></li><li></li><li><a href="external-yeoman-generator.html">yeoman-generator</a></li><li></li><li></li><li><a href="external-yosay.html">yosay</a></li><li></li></ul>
+</nav>
+
+<div class="separator" ></div>
+
+<div id="main">
+    
+    <h1 class="page-title">src/utils/helpers.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @module src/utils/helpers
+ * @author Ana Arriaga Coll
+ */
+
+module.exports = () => {
+    return {
+        /**
+         * Adding precommits scritps
+         * @function
+         * @name addPreCommitScripts
+         */
+        addPreCommitScripts(scripts, precommits) {
+            const typeScripts = (typeof scripts);
+            switch (typeScripts) {
+                case 'string':
+                    scripts = scripts.split(',').concat(precommits).join(',');
+                    break;
+                case 'array':
+                    scripts.concat(precommits);
+                    break;
+                case 'object':
+                    if (!scripts.hasOwnProperty('run')) {
+                        scripts['run'] = [];
+                    }
+                    scripts['run'].concat(precommits);
+                    break;
+                default:
+                    scripts['run'] = precommits;
+            }
+            return scripts;
+        }
+    };
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+    
+</div>
+
+<br class="clear">
+
+<footer>
+
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+<script src="scripts/search.js" defer></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

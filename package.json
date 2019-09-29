@@ -4,7 +4,10 @@
   "description": "Yeoman generator for common tools",
   "main": "app/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "docs:generate": "node_modules/.bin/jsdoc -c jsdoc.json",
+    "docs:add": "git add --verbose -- *docs/*"
   },
   "repository": {
     "type": "git",
