@@ -45,7 +45,6 @@ module.exports = class extends Generator {
         const typeScripts = (typeof scripts);
         switch (typeScripts) {
             case 'string':
-                this.log('case string');
                 scripts = scripts.split(',').concat(precommits).join(',');
                 break;
             case 'array':
@@ -85,12 +84,12 @@ module.exports = class extends Generator {
               message: "Tell me if you want to generate the doc automatically (y/n)",
               default: "n"
             }
-          ];
+        ];
 
-          return this.prompt(prompts).then(props => {
+        return this.prompt(prompts).then(props => {
             this.props.autoDoc = props.autoDoc || null;
             this.log(`Settings props...`);
-          });
+        });
     }
 
     /**

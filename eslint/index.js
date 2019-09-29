@@ -48,7 +48,6 @@ module.exports = class extends Generator {
         const typeScripts = (typeof scripts);
         switch (typeScripts) {
             case 'string':
-                this.log('case string');
                 scripts = scripts.split(',').concat(precommits).join(',');
                 break;
             case 'array':
