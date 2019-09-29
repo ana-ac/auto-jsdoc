@@ -1,5 +1,5 @@
 # JSDoc Generator tools
-This generator will perform certain actions to automate the installation and configuration of the jsdoc with docdash elegant in the project in which it is launched.  
+This generator will perform certain actions to automate the installation and configuration of the jsdoc with docdash elegant in the project in which it is launched.
 Some of them are optional depending on what the user chooses through the command line.
 
 ### Dependencies:
@@ -10,8 +10,8 @@ Some of them are optional depending on what the user chooses through the command
 ### Configuration files:
 * [jsdoc file](https://github.com/ana-ac/generator-tools/blob/master/jsdoc/templates/jsdoc.json)
 
-### Prompting
-* launch the compiler jsdoc in the repository automatically in the hook pre commit.
+### Questions through the CL
+* Launch the compiler jsdoc in the repository automatically in the hook pre commit.
 
 ## Launch
 Then launch the generator.
