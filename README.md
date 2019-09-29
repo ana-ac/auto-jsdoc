@@ -15,13 +15,33 @@ The necessary dependencies are:
 * [eslint-plugin-promise](https://www.npmjs.com/package/eslint-plugin-promise)
 
 The configuration of the eslint found in the .eslintrc.json file will be copied to the destination project.  
+
 You will also be given the option to use the fix option automatically using the precommit package. In this case the packages will also be installed:
 
 * [precommit](https://www.npmjs.com/package/precommit)
 
+Specific generator launch:
+```
+yo tools:eslint
+```
+
 ### 2. <a name="generator-jsdoc" ></a>JSDoc Generator
 
-(wip)
+The generator will install the necessary dependencies and add the configuration in the package.json file.   
+The necessary dependencies are:  
+* [jsdoc](https://www.npmjs.com/package/jsdoc)
+* [docdash-elegant](https://www.npmjs.com/package/docdash-elegant)
+
+The jsdoc.json file containing the configuration of the jsdoc and docdash to be used in the target project will also be copied.   
+
+You will also be given the option to use the fix option automatically using the precommit package. In this case the packages will also be installed:
+
+* [precommit](https://www.npmjs.com/package/precommit)
+
+Specific generator launch:
+```
+yo tools:jsdoc
+```
 
 ## Installation
 
