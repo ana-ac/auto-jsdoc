@@ -13,7 +13,7 @@ Some of them are optional depending on what the user chooses through the command
 * [eslintrc file](https://github.com/ana-ac/generator-tools/blob/master/eslint/templates/.eslintrc.json)
 
 ### Questions through the CL
-* Launch the auto fix in the repository automatically in the hook pre commit. (y/n)
+* Launch the eslint fix automatically in the pre commit hook. (y/n)
 
 ## Launch
 Then launch the generator.
