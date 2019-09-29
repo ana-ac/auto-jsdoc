@@ -1,5 +1,5 @@
 # ESLint Generator tools
-This generator will perform certain actions to automate the installation and configuration of the eslint base in the project in which it is launched.
+This generator will perform certain actions to automate the installation and configuration of the eslint base in the project in which it is launched.  
 Some of them are optional depending on what the user chooses through the command line.
 
 ### Dependencies:
@@ -10,7 +10,7 @@ Some of them are optional depending on what the user chooses through the command
 * [precommit (optional)](https://www.npmjs.com/package/precommit)
 
 ### Configuration files:
-* [eslintrc file]((https://github.com/ana-ac/generator-tools/blob/master/eslint/templates/.eslintrc.json))
+* [eslintrc file](https://github.com/ana-ac/generator-tools/blob/master/eslint/templates/.eslintrc.json)
 
 ### Prompting
 * launch the auto fix in the repository automatically in the hook pre commit.
