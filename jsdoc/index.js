@@ -1,6 +1,7 @@
 /**
  * JSDoc Generator module to handle all tasks to configure it
  * @module generator/tools/jsdoc
+ * @requires utils/helpers
  * @author Ana Arriaga Coll
  */
 
@@ -10,9 +11,7 @@ const yosay = require('yosay');
 const chalk = require('chalk');
 /** @external yeoman-generator */
 const Generator = require('yeoman-generator');
-const {
-    helpers
-} = require('../src/utils');
+const helpers = require('../src/utils');
 
 const confNameFile = 'package.json';
 const dependencies = [];
@@ -65,8 +64,7 @@ module.exports = class extends Generator {
         ];
 
         return this.prompt(prompts).then((props) => {
-            this.props.autoDoc = props.autoDoc || null;
-            this.log('Settings props...');
+            this.props = props;
         });
     }
 

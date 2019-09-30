@@ -10,9 +10,7 @@ const yosay = require('yosay');
 const chalk = require('chalk');
 /** @external yeoman-generator */
 const Generator = require('yeoman-generator');
-const {
-    helpers
-} = require('../src/utils');
+const helpers = require('../src/utils');
 
 const confNameFile = 'package.json';
 const dependencies = [];
@@ -68,8 +66,7 @@ module.exports = class extends Generator {
         ];
 
         return this.prompt(prompts).then((props) => {
-            this.props.autoFix = props.autoFix || null;
-            this.log('Settings props...');
+            this.props = props;
         });
     }
 
@@ -93,19 +90,19 @@ module.exports = class extends Generator {
 
         // adding scripts
         const scripts = this.conf.scripts || {};
-        /* for (var key in newScripts) {
+        for (var key in newScripts) {
             if (newScripts.hasOwnProperty(key)) {
                 scripts[key] = newScripts[key];
             }
         }
- */
+
         // adding precommits scripts
         if (this.props.autoFix !== null) {
-            /* for (var key in newPrecomitScripts) {
+            for (var key in newPrecomitScripts) {
                 if (newPrecomitScripts.hasOwnProperty(key)) {
                     scripts[key] = newPrecomitScripts[key];
                 }
-            } */
+            }
             // pre commit scripts
             const precommit = this.conf['pre-commit'] || {};
             helpers.addPreCommitScripts(precommit, precommits);
